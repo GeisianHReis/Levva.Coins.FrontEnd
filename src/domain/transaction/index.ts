@@ -12,6 +12,7 @@ export interface TransactionValues {
     descricao: string;
     valor: number;
     tipo: number;
+    categoriaId: string;
     categoria: CategoryValues;
     data: string;
 }
