@@ -5,20 +5,20 @@ import { NewTransactionParams, TransactionValues } from "../../domain/transactio
 
 
 export const createTransaction = async ({
-    descricao,
-    valor,
-    tipo,
-    categoriaId,
-    usuarioId
+    description,
+    amount,
+    type,
+    categoryId,
+    userId
 }: NewTransactionParams): Promise<void> => {
     return Api.post({
-        url: "/Transacao",
+        url: "/Transaction",
         body: {
-            descricao,
-            valor,
-            tipo,
-            categoriaId,
-            usuarioId
+            description,
+            amount,
+            type,
+            categoryId,
+            userId
         },
     }).then((respose) => {
         return respose.data;
@@ -29,7 +29,7 @@ export const createTransaction = async ({
 
 const getTransactions = async(): Promise<TransactionValues[]> => {
     return Api.get({
-        url: "/Transacao/all"
+        url: "/Transaction/all"
     }).then((response) => {
         return response.data;
     }).catch((err: AxiosError<RequestError>) => {

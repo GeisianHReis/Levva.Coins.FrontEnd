@@ -21,24 +21,24 @@ import { Form, FormButton, FormError, FormInput, FormSelect,TransactionTypeButto
 import GetTransactionUseCase from "../../useCases/GetTransactionUseCase/GetTransactionUseCase";
 
 interface FormProps {
-  descricao: string;
-  valor: number;
-  tipo: string;
-  categoriaId: string;
-  usuarioId: number;
+  description: string;
+  amount: number;
+  type: string;
+  categoryId: string;
+  userId: number;
 }
 
 const formSchema = yup
   .object({
-    descricao: yup.string().required("O nome da transacão é obrigatória."),
-    valor: yup.number().required("O valor da transacão é obrigatório."),
-    tipo: yup
+    description: yup.string().required("O name da transacão é obrigatória."),
+    amount: yup.number().required("O preço da transacão é obrigatório."),
+    type: yup
       .string()
       .oneOf(["income", "outcome"])
-      .required("O valor da transacão é obrigatório."),
-    categoriaId: yup
+      .required("O tipo da transacão é obrigatório."),
+    categoryId: yup
       .string()
-      .required("A categoria da transacão é obrigatória."),
+      .required("A category da transacão é obrigatória."),
   })
   .required();
 
@@ -56,26 +56,28 @@ export function TransactionModal() {
     setValue,
     formState: { errors },
   } = useForm<FormProps>({
-    resolver: yupResolver(formSchema),
+    resolver: yupResolver(formSchema) as any,
   });
+
+  
 
   useEffect(() => {
     GetCategoriesUseCase.execute();
   }, []);
 
   async function handleCreateCategory({
-    descricao,
-    valor,
-    tipo,
-    categoriaId,
-    usuarioId
+    description,
+    amount,
+    type,
+    categoryId,
+    userId
   }: FormProps) {
     NewTransactionUseCase.execute({
-      descricao,
-      valor,
-      tipo: tipo === "income" ? 0 : 1,
-      categoriaId,
-      usuarioId: usuarioId = user.id,
+      description,
+      amount,
+      type: type === "income" ? 0 : 1,
+      categoryId,
+      userId: userId = user.id,
     })
       .then(() => {
         closeModalRef.current?.click();
@@ -91,34 +93,34 @@ export function TransactionModal() {
       trigger={<NewTransactionButton>Nova transacão</NewTransactionButton>}
     >
       <Form onSubmit={handleSubmit(handleCreateCategory)}>
-        <FormInput {...register("descricao")} placeholder="Descrição" />
-        {errors.descricao && (
-          <FormError>{errors.descricao.message}</FormError>
+        <FormInput {...register("description")} placeholder="Descrição" />
+        {errors.description && (
+          <FormError>{errors.description.message}</FormError>
         )}
 
         <FormInput
-          {...register("valor")}
+          {...register("amount")}
           type="number"
           placeholder="Preço"
           step="0.1"
           min="0"
           max="999999"
         />
-        {errors.valor && <FormError>{errors.valor.message}</FormError>}
+        {errors.amount && <FormError>{errors.amount.message}</FormError>}
 
-        <FormSelect {...register("categoriaId")}>
+        <FormSelect {...register("categoryId")}>
           <option value="" selected disabled hidden>
-            Categoria
+            category
           </option>
           {categories.map((category) => (
-            <option value={category.id}>{category.descricao}</option>
+            <option value={category.id}>{category.description}</option>
           ))}
         </FormSelect>
-        {errors.categoriaId && (<FormError>{errors.categoriaId.message}</FormError>)}
+        {errors.categoryId && (<FormError>{errors.categoryId.message}</FormError>)}
 
         <TransactionTypeContainer
-         {...register("tipo")}
-         onChange={(event) => setValue("tipo", event.target.value)}
+         {...register("type")}
+         onChange={(event) => setValue("type", event.target.value)}
         >
           <TransactionTypeButton variant="income" value="income">
             <ArrowCircleUp size={24} />
@@ -129,7 +131,7 @@ export function TransactionModal() {
             Saída
           </TransactionTypeButton>
         </TransactionTypeContainer>
-        {errors.tipo && <FormError>{errors.tipo.message}</FormError>}
+        {errors.type && <FormError>{errors.type.message}</FormError>}
 
         {hasError && <FormError>{errorMessage}</FormError>}
 

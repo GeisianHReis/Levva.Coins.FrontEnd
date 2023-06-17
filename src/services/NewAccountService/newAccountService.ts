@@ -4,19 +4,19 @@ import { RequestError } from "../../domain/request";
 import { NewAccountParams } from "../../domain/newAccount";
 
 const createUser = async ({
-    nome,
+    name,
     email,
-    senha,
+    password,
 }: NewAccountParams): Promise<void> => {
     return Api.post({
-        url: "/Usuario",
+        url: "/User",
         body: {
-            nome,
+            name,
             email,
-            senha,
+            password,
         },
     }).then((respose) => {
-        return respose.data;
+        return respose.date;
     }).catch((err: AxiosError<RequestError>) => {
         throw err.response?.data;
     });

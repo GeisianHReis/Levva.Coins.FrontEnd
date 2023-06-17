@@ -10,7 +10,7 @@ import LoginStore from "../../stores/LoginStore/loginStore";
 
 interface FormProps {
     email: string;
-    senha: string;
+    password: string;
 }
 
 const formSchema = yup.object({
@@ -18,9 +18,9 @@ const formSchema = yup.object({
         .string()
         .email("Digite um mail válido")
         .required("O mail é obrigatório"),
-    senha: yup
+    password: yup
         .string()
-        .required("A senha é obrigatória"),
+        .required("A Senha é obrigatória"),
 }).required();
 
 export function Login(){
@@ -31,8 +31,8 @@ export function Login(){
         resolver: yupResolver(formSchema)
     });
 
-    function handleLogin({email, senha}: FormProps) {
-        LoginUseCase.execute({email, senha});
+    function handleLogin({email, password}: FormProps) {
+        LoginUseCase.execute({email, password});
     }
     
     return(
@@ -41,8 +41,8 @@ export function Login(){
                 <FormInput {...register("email")} placeholder="Email" />
                 {errors.email && <FormError>{errors.email.message}</FormError>}
 
-                <FormInput {...register("senha")} type="password" placeholder="Senha" />
-                {errors.senha && <FormError>{errors.senha.message}</FormError>}
+                <FormInput {...register("password")} type="password" placeholder="password" />
+                {errors.password && <FormError>{errors.password.message}</FormError>}
 
                 <FormLink to="/new-account">Não tem conta? Crie agora</FormLink>
 

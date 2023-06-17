@@ -7,13 +7,13 @@ import { RequestError } from "../../domain/request";
 
 const authenticateUser = async ({
   email,
-  senha,
+  password,
 }: LoginParams): Promise<LoginValues> => {
   return Api.post({
-    url: "/Usuario/auth",
+    url: "/User/auth",
     body: {
       email,
-      senha,
+      password,
     },
   })
     .then((response) => {

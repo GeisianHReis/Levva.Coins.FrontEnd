@@ -6,12 +6,12 @@ import { RequestError } from "../../domain/request";
 import { CategoryValues, NewCategoryParams } from "../../domain/category";
 
 export const createCategory = async ({
-  descricao,
+  description,
 }: NewCategoryParams): Promise<void> => {
   return Api.post({
-    url: "/Categoria",
+    url: "/category",
     body: {
-      descricao,
+      description,
     },
   })
     .then((response) => {
@@ -24,7 +24,7 @@ export const createCategory = async ({
 
 export const getCategories = async(): Promise<CategoryValues[]> => {
   return Api.get({
-    url: "/Categoria/all"
+    url: "/category/all"
   }).then((response) => {
     return response.data;
   }).catch((err: AxiosError<RequestError>) => {

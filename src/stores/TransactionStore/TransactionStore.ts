@@ -7,7 +7,7 @@ import { loadCreateTransactionDone, loadTransaction, loadTransactionBuscadasDone
 const initialState: TransactionState = {
   isLoading: false,
   transactions: [],
-  transactionsBuscadas: [],
+  transactionsSearch: [],
   hasError: false,
   errorMessage: "",
   
@@ -29,7 +29,7 @@ const TransactionStore = createStore<TransactionState>(initialState)
   .on(loadTransactionDone, (_, data) => ({
     isLoading: false,
     transactions: data,
-    transactionsBuscadas: [],
+    transactionsSearch: [],
     hasError: false,
     errorMessage: ""
   }))
@@ -42,7 +42,7 @@ const TransactionStore = createStore<TransactionState>(initialState)
   .on(loadTransactionBuscadasDone, (state, data) => ({
     ...state,
     isLoading: false,
-    transactionsBuscadas: data,
+    transactionsSearch: data,
     hasError: false,
     errorMessage: ""
   }));

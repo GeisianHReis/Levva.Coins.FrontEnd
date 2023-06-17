@@ -1,6 +1,5 @@
 
 import { SearchFormConteiner } from "./styles";
-import { useState } from "react";
 import { useStore } from "effector-react";
 
 import TransactionStore from "../../stores/TransactionStore/TransactionStore";
@@ -8,16 +7,16 @@ import { loadTransactionBuscadasDone } from "../../stores/TransactionStore/Trans
 import { useForm } from "react-hook-form";
 
 interface inputProps {
-    buscador: string;
+    search: string;
 }
 
 export function SearchForm(){
     const { transactions } = useStore(TransactionStore);
 
     const { handleSubmit, register } = useForm<inputProps>();
-    function handleBuscada( {buscador}: inputProps) {
-        const buscadorUpCase = buscador.toUpperCase();
-        const x = transactions.filter((transactions) => transactions.descricao.toUpperCase().includes(buscadorUpCase));
+    function handleBuscada( {search}: inputProps) {
+        const searchUpCase = search.toUpperCase();
+        const x = transactions.filter((transactions) => transactions.description.toUpperCase().includes(searchUpCase));
         console.log(x);
         loadTransactionBuscadasDone(x);
     }
@@ -25,7 +24,7 @@ export function SearchForm(){
 
     return(
         <SearchFormConteiner onChange={handleSubmit(handleBuscada)}>
-            <input {...register("buscador")} type="text" placeholder="Busque por transações" />
+            <input {...register("search")} type="text" placeholder="Busque por transações" />
         </SearchFormConteiner>
     )
 }

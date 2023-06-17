@@ -8,25 +8,25 @@ import NewAccountUseCase from "../../useCases/NewAccountCases/NewAccountCase";
 import NewAccountStore from "../../stores/NewAccountStore/NewAccountStore";
 
 interface FormProps {
-    nome: string;
+    name: string;
     email: string;
-    senha: string;
-    confirmeSenha: string;
+    password: string;
+    confirmepassword: string;
 }
 
 const formSchema = yup.object({
-    nome: yup.string().required("O nome é obrigatório"),
+    name: yup.string().required("O name é obrigatório"),
     email: yup.string().email("Digite um mail válido").required("O e-mail é obrigatório"),
-    senha: yup.string().required("A senha é obrigatória"),
-    confirmeSenha: yup.string().required("A confirmação de senha é obrigatória").oneOf([yup.ref('senha')],"As senhas não são iguais")
+    password: yup.string().required("A password é obrigatória"),
+    confirmepassword: yup.string().required("A confirmação de password é obrigatória").oneOf([yup.ref('password')],"As passwords não são iguais")
 }).required();
 
 function handleNewAccount({
-    nome,
+    name,
     email,
-    senha,
+    password,
 }: FormProps) {
-    NewAccountUseCase.execute({nome, email, senha})
+    NewAccountUseCase.execute({name, email, password})
 }
 
 export function NewAccount(){
@@ -39,17 +39,17 @@ export function NewAccount(){
     return(
         <AuthLayout title="Cadastro" subTitle="Crie sua conta e começe a gerenciar suas finanças.">
              <Form onSubmit={handleSubmit(handleNewAccount)}>
-                <FormInput {...register("nome")}type="name" placeholder="Nome e sobrenome" />
-                {errors.nome && <FormError>{errors.nome.message}</FormError>}
+                <FormInput {...register("name")}type="name" placeholder="Nome e sobrenome" />
+                {errors.name && <FormError>{errors.name.message}</FormError>}
 
                 <FormInput {...register("email")} placeholder="Email" />
                 {errors.email && <FormError>{errors.email.message}</FormError>}
 
-                <FormInput {...register("senha")}type="password" placeholder="Senha" />
-                {errors.senha && <FormError>{errors.senha.message}</FormError>}
+                <FormInput {...register("password")}type="password" placeholder="password" />
+                {errors.password && <FormError>{errors.password.message}</FormError>}
                 
-                <FormInput {...register("confirmeSenha")}type="password" placeholder="Confirme a senha" />
-                {errors.confirmeSenha && <FormError>{errors.confirmeSenha.message}</FormError>}
+                <FormInput {...register("confirmepassword")}type="password" placeholder="Confirme a senha" />
+                {errors.confirmepassword && <FormError>{errors.confirmepassword.message}</FormError>}
 
                 {hasError && <FormError>{errorMessage}</FormError>}
 

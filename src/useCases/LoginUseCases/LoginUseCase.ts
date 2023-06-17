@@ -4,13 +4,13 @@ import { RequestError } from "../../domain/request";
 import { LoginService } from "../../services/LoginService/loginService";
 import { loadLogin, loadLoginDone, loadLoginFail } from "../../stores/LoginStore/loginEvents";
 
-const execute = async ({email, senha}: LoginParams ): Promise<void> => {
+const execute = async ({email, password}: LoginParams ): Promise<void> => {
     loadLogin();
      
-    return LoginService.authenticateUser({ email, senha}).then(
+    return LoginService.authenticateUser({ email, password}).then(
         
         (user: LoginValues) => {
-            
+            console.log(user);
             window.localStorage.setItem("user", JSON.stringify(user));
             loadLoginDone();
             router.navigate("/home");

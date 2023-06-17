@@ -4,20 +4,20 @@ import { createTransaction } from "../../services/TransactionService/Transaction
 import { loadCreateTransactionDone, loadTransaction, loadTransactionFail } from "../../stores/TransactionStore/TransactionEvents";
 
 const execute = async ({
-    descricao,
-    valor,
-    tipo,
-    categoriaId,
-    usuarioId
+    description,
+    amount,
+    type,
+    categoryId,
+    userId
 }: NewTransactionParams): Promise<void> => {
     loadTransaction();
 
     return createTransaction({
-        descricao,
-        valor,
-        tipo,
-        categoriaId,
-        usuarioId
+        description,
+        amount,
+        type,
+        categoryId,
+        userId
     }).then(() => {
         loadCreateTransactionDone();
     }).catch(({hasError, message}: RequestError) => {

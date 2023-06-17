@@ -1,11 +1,11 @@
 export interface LoginParams {
     email: string;
-    senha: string;
+    password: string;
 }
 
 export interface LoginValues {
     id: string;
-    nome: string;
+    name: string;
     email: string;
     token: string;
 }

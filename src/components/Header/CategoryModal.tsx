@@ -16,12 +16,12 @@ import { useRef } from "react";
 import GetCategoriesUseCase from "../../useCases/GetCategoryUseCase/GetCategoryCase";
 
 interface FormProps {
-  descricao: string;
+  description: string;
 }
 
 const formSchema = yup
   .object({
-    descricao: yup.string().required("O nome da categoria é obrigatório."),
+    description: yup.string().required("O name da category é obrigatório."),
   })
   .required();
 
@@ -38,8 +38,8 @@ export function CategoryModal() {
     resolver: yupResolver(formSchema),
   });
 
-  async function handleCreateCategory({ descricao }: FormProps) {
-    NewCategoryUseCase.execute({ descricao })
+  async function handleCreateCategory({ description }: FormProps) {
+    NewCategoryUseCase.execute({ description })
       .then(() => {
         closeModalRef.current?.click();
         GetCategoriesUseCase.execute();
@@ -49,14 +49,14 @@ export function CategoryModal() {
 
   return (
     <Modal
-      title="Nova categoria"
+      title="Nova Categoria"
       closedModalRef={closeModalRef}
-      trigger={<NewCategoryButton>Nova categoria</NewCategoryButton>}
+      trigger={<NewCategoryButton>Nova Categoria</NewCategoryButton>}
     >
       <Form onSubmit={handleSubmit(handleCreateCategory)}>
-        <FormInput {...register("descricao")} placeholder="Descrição" />
-        {errors.descricao && (
-          <FormError>{errors.descricao.message}</FormError>
+        <FormInput {...register("description")} placeholder="Descrição" />
+        {errors.description && (
+          <FormError>{errors.description.message}</FormError>
         )}
 
         {hasError && <FormError>{errorMessage}</FormError>}

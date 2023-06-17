@@ -1,18 +1,18 @@
 import { CategoryValues } from "../category";
 
 export interface NewTransactionParams {
-    descricao: string;
-    valor: number;
-    tipo: number;
-    categoriaId: string;
-    usuarioId: number;
+    description: string;
+    amount: number;
+    type: number;
+    categoryId: string;
+    userId: number;
 }
 export interface TransactionValues {
     id: string;
-    descricao: string;
-    valor: number;
-    tipo: number;
-    categoriaId: string;
-    categoria: CategoryValues;
-    data: string;
+    description: string;
+    amount: number;
+    type: number;
+    categoryId: string;
+    category: CategoryValues;
+    date: string;
 }

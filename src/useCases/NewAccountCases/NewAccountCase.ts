@@ -8,17 +8,17 @@ import { NewAccountParams } from "../../domain/newAccount";
 import { RequestError } from "../../domain/request";
 
 const execute = async ({
-  nome,
+  name,
   email,
-  senha,
+  password,
 
 }: NewAccountParams): Promise<void> => {
     loadNewAccount();
 
   return NewAccountService.createUser({
-    nome,
+    name,
     email,
-    senha,
+    password,
   })
     .then(() => {
       loadNewAccountDone();

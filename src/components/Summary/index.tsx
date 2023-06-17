@@ -9,18 +9,18 @@ export function Summary(){
     const {transactions} = useStore(TransactionStore);
 
     const summary = transactions.reduce((acc, transaction) => {
-        if(transaction.tipo === 0){
-            acc.deposito += transaction.valor;
-            acc.total += transaction.valor;
+        if(transaction.type === 0){
+            acc.deposit += transaction.amount;
+            acc.total += transaction.amount;
         } else {
-            acc.saidas += transaction.valor;
-            acc.total -= transaction.valor;
+            acc.output += transaction.amount;
+            acc.total -= transaction.amount;
         }
         return acc;
     },
         {
-            deposito: 0,
-            saidas: 0,
+            deposit: 0,
+            output: 0,
             total: 0
         });
 
@@ -37,7 +37,7 @@ export function Summary(){
                     <ArrowCircleUp size={32} color={defaultTheme["yellow-500"]}/>
                 </header>
 
-                <strong>{money.format(summary.deposito)}</strong>
+                <strong>{money.format(summary.deposit)}</strong>
             </SummaryCard>
             <SummaryCard>
                 <header>
@@ -45,7 +45,7 @@ export function Summary(){
                     <ArrowCircleDown size={32} color={defaultTheme["red-500"]}/>
                 </header>
 
-                <strong>{money.format(summary.saidas)}</strong>
+                <strong>{money.format(summary.output)}</strong>
             </SummaryCard>
             <SummaryCard variant="balance">
                 <header>

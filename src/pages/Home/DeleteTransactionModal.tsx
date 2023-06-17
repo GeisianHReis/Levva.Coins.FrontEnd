@@ -10,12 +10,12 @@ import { useRef } from "react";
 import GetCategoriesUseCase from "../../useCases/GetCategoryUseCase/GetCategoryCase";
 
 interface FormProps {
-  descricao: string;
+  description: string;
 }
 
 const formSchema = yup
   .object({
-    descricao: yup.string().required("O nome da categoria é obrigatório."),
+    description: yup.string().required("O name da category é obrigatório."),
   })
   .required();
 
@@ -23,8 +23,8 @@ export function DeleteTransactionModal() {
     const closeModalRef = useRef<HTMLButtonElement>(null);
     const { handleSubmit,reset } = useForm<FormProps>({ resolver: yupResolver(formSchema)});
   
-    async function handleCreateCategory({ descricao }: FormProps) {
-      NewCategoryUseCase.execute({ descricao })
+    async function handleCreateCategory({ description }: FormProps) {
+      NewCategoryUseCase.execute({ description })
         .then(() => {
           closeModalRef.current?.click();
           GetCategoriesUseCase.execute();
